@@ -1,0 +1,52 @@
+Task 1
+======
+
+Experiment 1
+------------
+
+# GUESS: What is in %rax?
+3
+# GUESS: What is on the top of the stack now?
+2
+# GUESS: What is the item right below the top of the stack?
+1
+# GUESS: What is in %rbx?
+1
+
+
+Experiment 2
+------------
+
+# GUESS: What are the addresses of labels in the .data section?
+0x403e50  
+# GUESS: Contents of addess pointed to by `stuff`
+0x403e58
+# GUESS: What's the 5th element of `stuff`?
+5
+# GUESS: How big is stuff?
+64 bytes
+# OBSERVE: how big is the .text section?
+12 bytes (since gdp return main+12, and mostly 
+# OBSERVE: how big is the .data section? (optionally GUESS)
+76 bytes (64 bytes for quad and 12 bytes for the rest 3 parts)
+
+Experiment 3
+------------
+
+# GUESS: What is on top of the stack? Here, compare with the value printed by `showq $after_dummy`
+0 (140732188516240)
+# GUESS: What is the address of the top of the stack, relaive to the first showq in `main`?
+4198747
+# GUESS: What is the current stack pointer?
+140732188516232 (still 0)
+# GUESS: What is the state of rbp/rsp after stack frame is set up?
+They will point to the same place since there is no data put into the stack / heap (enter $0 indicates no space skipped). 
+
+Experiment 4
+------------
+
+# GUESS: What is the state of rbp/rsp after the stack frame is destroyed?
+The initial address at the beginning is 140732856741512 for %rsp and 140732856741520 for %rbp. 
+After the enter part, both %rbp and %rsp will point to the same address as 140732856741504 (since the instruction size is 0 # enter $0, $0).
+After the leave (frame is destroyed), they will point back to a new address with 8 bits away as %rsp for 140732856741512
+and %rbp for 140732856741520. (apply for all size of instruction, they will all return the same address at the beginning). 
